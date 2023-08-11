@@ -1,0 +1,33 @@
+import React from "react";
+import notes from "../features/notes";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+
+export default function Sidenotes() {
+  const notes = useSelector((state) => state.notes);
+  return (
+    <aside className="shrink-0 bg-slate-100 text-slate-900 w-[275px] flex flex-col items-center pt-2 border-r border-gray-300">
+      <p className="w-full text-center py-6 px-4 text-2xl text-slate-800 font-semibold border-b border-gray-900">
+        Mes notes
+      </p>
+      <ul className="w-full divide-y divide-slate-300">
+        {notes.list &&
+          notes.list.map((note) => (
+            <li
+              key={note.id}
+              className="relative hover:bg-slate-200 cursor-pointer"
+            >
+              <Link className="block p-4 w-full h-full" to={`/notes/${note.id}`}>
+                <span className="text-xl block text-slate-900">
+                  {note.title}
+                </span>
+                <span className="text-lg block text-slate-800">
+                  {note.subtitle}
+                </span>
+              </Link>
+            </li>
+          ))}
+      </ul>
+    </aside>
+  );
+}
